@@ -54,6 +54,12 @@ public class Main {
     } while (mainMenuCommand != 0);
 
     }
-    public static void addDeposit(){
+    public static void addDeposit() {
+    }
 
+    public static void makePayment(){
 }
+    public static void ledger (){
+
+    }
+
