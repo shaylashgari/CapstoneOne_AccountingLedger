@@ -5,6 +5,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+    static Scanner commandScanner = new Scanner(System.in);
+    static Scanner inputScanner = new Scanner(System.in);
 
     // main method 
     public static void main (String [] args) {
@@ -26,7 +28,6 @@ public class Main {
             // import scanner, create instance of scanner, use scanner to store user's command as variable
 
             try {
-                Scanner commandScanner = null;
                 mainMenuCommand = commandScanner.nextInt();
             } catch (InputMismatchException ime) {
                 mainMenuCommand = 4;
@@ -34,31 +35,33 @@ public class Main {
 
             // switch statement to match the user command to the provided cases
 
+            switch (mainMenuCommand) {
+                case 1:
+                    addDeposit();
+                    break;
+                case 2:
+                    makePayment();
+                    break;
+                case 3:
+                    displaySubMenu();
+                    break;
+                case 4:
+                    System.out.println("Exiting");
+                    break;
+                default:
+                    //handle incorrect commands
+                    System.out.println("Command not found, please try again.");
+            }
+
         } while (mainMenuCommand != 4);
 
-        switch (mainMenuCommand) {
-            case 1:
-                addDeposit();
-                break;
-            case 2:
-                makePayment();
-                break;
-            case 3:
-                displaySubMenu();
-                break;
-            case 4:
-                System.out.println("Exiting");
-                break;
-            default:
-                //handle incorrect commands
-                System.out.println("Command not found, please try again.");
-        }
-        while (mainMenuCommand != 4);
-
+    // main method end
     }
 
     public static void addDeposit() {
-        System.out.println();
+        System.out.println("add deposit");
+
+
     }
 
     public static void makePayment(){
@@ -66,6 +69,7 @@ public class Main {
     public static void displaySubMenu () {
 
         int subMenuCommand;
+        subMenuCommand= 3;
 
         // create a do while loop
 
@@ -77,8 +81,16 @@ public class Main {
             System.out.println("4) Reports");
             System.out.println("0) Going back to the main menu.");
 
+            // possibly add a scanner
+            try {
+                subMenuCommand = commandScanner.nextInt();
+            } catch (InputMismatchException ime) {
+                subMenuCommand = 0;
+            }
+
 
             // switch statement to trigger according static method
+
             switch (subMenuCommand) {
                 case 1:
                     displayAllEntries();
@@ -92,8 +104,9 @@ public class Main {
                 case 4:
                     reports();
                     break;
-                case 5:
+                case 0:
                     System.out.println("Going back to the main menu.");
+                    break;
                 default:
                     System.out.println("Command not found. Please try again.");
             }
@@ -102,10 +115,20 @@ public class Main {
 
     }
     public static void displayAllEntries() {
-    }
-    public static void deposits() {
+
     }
 
+    public static void deposits() {
+
+    }
+
+    public static void payments(){
+
+    }
+
+    public static void reports(){
+
+    }
 
 
 
@@ -116,7 +139,7 @@ public class Main {
         
         
         
-    }
+
 
    
 
