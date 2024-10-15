@@ -1,12 +1,20 @@
 package com.ps;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     static Scanner commandScanner = new Scanner(System.in);
     static Scanner inputScanner = new Scanner(System.in);
+    // create an array list that is going to keep track of all transactions
+    // undertand the context, keeping track of transactions, array list of transactions
+    // static array list
+    static ArrayList<Transaction> allTransaction = new ArrayList<>();
+
 
     // main method 
     public static void main (String [] args) {
@@ -58,9 +66,36 @@ public class Main {
     // main method end
     }
 
+    public static void getTransactions () {
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv"));
+
+            String firstLine = bufferedReader.readLine();
+            String input;
+
+            while ((input = bufferedReader.readLine()) != null) {
+                String[] transactionArr = input.split("\\|"); //
+//
+                String date = transactionArr[0];
+                String time = transactionArr[1];
+                String description = (transactionArr[2]);
+                String vendor = transactionArr[3];
+                float amount = Float.parseFloat(transactionArr[4]);
+                boolean isPubliclyAvailable = Boolean.parseBoolean(transactionArr[4]);
+                Transaction transaction = new Transaction(date, time, description, vendor, amount);
+                allTransaction.add(transaction);
+            }
+            bufferedReader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
     public static void addDeposit() {
         System.out.println("add deposit");
-
+        // add animal in zoo
 
     }
 
@@ -115,20 +150,49 @@ public class Main {
 
     }
     public static void displayAllEntries() {
+        getTransactions();
 
+        // display all animals ex
+        // for loop, iterating through array
+        // array list of transactions
+
+        System.out.println("Placeholder: Display All");
+        for (int i = 0; i < allTransaction.size(); i++) {
+            System.out.println(allTransaction.get(i));
+        }
     }
-
     public static void deposits() {
-
+        // if statement inside loop
     }
 
     public static void payments(){
-
+        // same as deposit, negative takes money out
     }
 
     public static void reports(){
 
+
+
+            System.out.println(" Please select a report type");
+            System.out.println("1) Month To Date");
+            System.out.println("2) Previous month");
+            System.out.println("3) Year To Date");
+            System.out.println("4) Previous year");
+            System.out.println("5) Search by Vendor");
+            System.out.println("0) Go Back To Reports Page");
+
+            int reportCommand;
+
+        try {
+            reportCommand = commandScanner.nextInt();
+        } catch (InputMismatchException ime) {
+            reportCommand = 0;
+        }
+
+        // do a do while loop & switch
     }
+
+    // how do I make it go back to home page?
 
 
 
