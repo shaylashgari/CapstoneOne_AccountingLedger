@@ -299,7 +299,9 @@ public class Main {
                 case 3:
                     yearToDate();
                     break;
-                case 4:
+                case 4: previousYear();
+                    break;
+                case 5:
                     searchByVendor();
                     break;
                 case 0:
@@ -337,7 +339,7 @@ public class Main {
        int currentMonth = today.getMonthValue();
        int currentYear = today.getYear();
 
-       // add logic here for
+       // add logic here for --> is this correct?
        currentMonth = currentMonth - 1;
 
        for (Transaction transaction : allTransaction) {
@@ -355,11 +357,63 @@ public class Main {
        }
    }
    public static void yearToDate(){
+        // previous yr: same thing, but insert currentyr= currentyr-1
+       LocalDate today = LocalDate.now();
+       int currentYear = today.getYear();
 
-      //  currentyear = currentyear - 1
+       // --> is this correct?
+       currentYear= currentYear -1;
+
+       for (Transaction transaction : allTransaction) {
+           DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+           String transactionDate = transaction.getDate();
+
+           LocalDate localDate = LocalDate.parse(transactionDate, dateFormatter);
+
+           int transactionYear = localDate.getYear();
+
+           if (currentYear == transactionYear) {
+               System.out.println(transaction);
+           }
+       }
+
    }
+
+   // previous yr method
+    public static void previousYear(){
+        LocalDate today = LocalDate.now();
+        int currentYear = today.getYear();
+
+        for (Transaction transaction : allTransaction) {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String transactionDate = transaction.getDate();
+
+            LocalDate localDate = LocalDate.parse(transactionDate, dateFormatter);
+
+            int transactionYear = localDate.getYear();
+
+            if (currentYear == transactionYear) {
+                System.out.println(transaction);
+            }
+        }
+
+    }
+
    public static void searchByVendor(){
     // zoo search by animal
+
+       System.out.println("Placeholder: Search by vendor");
+
+       System.out.println("Please provide the vendor name you're looking for...");
+       System.out.print("Vendor: ");
+       String nameToSearch = inputScanner.nextLine();
+
+       for (int i = 0; i < allTransaction.size(); i++) {
+           Transaction currentTransaction = allTransaction.get(i);
+           if (currentTransaction.getVendor().equalsIgnoreCase(nameToSearch)) {
+               System.out.println(currentTransaction);
+           }
+       }
    }
 
 
