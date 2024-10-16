@@ -2,7 +2,11 @@ package com.ps;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,7 +15,7 @@ public class Main {
     static Scanner commandScanner = new Scanner(System.in);
     static Scanner inputScanner = new Scanner(System.in);
     // create an array list that is going to keep track of all transactions
-    // undertand the context, keeping track of transactions, array list of transactions
+    // understand the context, keeping track of transactions, array list of transactions
     // static array list
     static ArrayList<Transaction> allTransaction = new ArrayList<>();
 
@@ -96,10 +100,54 @@ public class Main {
     public static void addDeposit() {
         System.out.println("add deposit");
         // add animal in zoo
+        System.out.println("Command for adding deposit");
+        // Add code for adding animal
+        System.out.println("Please enter the details of the deposit...");
 
+
+        System.out.print("Description: ");
+        String description = inputScanner.nextLine();
+
+       // inputScanner.nextLine();
+
+        System.out.print("Vendor: ");
+        String vendor = inputScanner.nextLine();
+
+        System.out.print("How much do you want to deposit? ");
+        float amount = inputScanner.nextFloat();
+
+        // create variables to store the current date time, local date time.now, get it self instead user
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss");
+
+        String formattedDate = currentDateTime.format(dateFormatter);
+        String formattedTime = currentDateTime.format(timeFormatter);
+
+        Transaction transaction = new Transaction(formattedDate, formattedTime, description, vendor, amount);
+        allTransaction.add(transaction);
+
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("transactions.csv", true));
+            bufferedWriter.write(String.format("\n%s|%s|%s|%s|%f",
+                    formattedDate,
+                    formattedTime,
+                    transaction.getDescription(),
+                    transaction.getVendor(),
+                    transaction.getAmount()
+
+            ));
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     }
 
     public static void makePayment(){
+
     }
     public static void displaySubMenu () {
 
