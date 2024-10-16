@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Main {
     // main method 
     public static void main (String [] args) {
         // Begin create menu Instructions
-
+        getTransactions();
         // initialize the command variable
 
         int mainMenuCommand;
@@ -80,7 +81,7 @@ public class Main {
 
             while ((input = bufferedReader.readLine()) != null) {
                 String[] transactionArr = input.split("\\|"); //
-//
+
                 String date = transactionArr[0];
                 String time = transactionArr[1];
                 String description = (transactionArr[2]);
@@ -258,6 +259,7 @@ public class Main {
             System.out.println(allTransaction.get(i));
         }
     }
+
     public static void deposits() {
         // if statement inside loop
     }
@@ -286,18 +288,82 @@ public class Main {
             } catch (InputMismatchException ime) {
                 reportCommand = 0;
             }
-            // create a switch case
 
-
+            switch (reportCommand) {
+                case 1:
+                    monthToDate();
+                    break;
+                case 2:
+                    previousMonth();
+                    break;
+                case 3:
+                    yearToDate();
+                    break;
+                case 4:
+                    searchByVendor();
+                    break;
+                case 0:
+                    System.out.println("Going back to the main menu.");
+                    break;
+                default:
+                    System.out.println("Command not found. Please try again.");
+            }
         } while (reportCommand != 0);
-
-
 
     }
 
-    // how do I make it go back to home page?
+    // method for report goes here, from the beginning of month to now
+   public static void monthToDate() {
+       LocalDate today = LocalDate.now();
+       int currentMonth = today.getMonthValue();
+       int currentYear = today.getYear();
 
-    // method for report goes here
+       for (Transaction transaction : allTransaction) {
+           DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+           String transactionDate = transaction.getDate();
+
+           LocalDate localDate = LocalDate.parse(transactionDate, dateFormatter);
+
+           int transactionMonth = localDate.getMonthValue();
+           int transactionYear = localDate.getYear();
+
+           if (currentMonth == transactionMonth && currentYear == transactionYear) {
+               System.out.println(transaction);
+           }
+       }
+   }
+   public static void previousMonth() {
+       LocalDate today = LocalDate.now();
+       int currentMonth = today.getMonthValue();
+       int currentYear = today.getYear();
+
+       // add logic here for
+       currentMonth = currentMonth - 1;
+
+       for (Transaction transaction : allTransaction) {
+           DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+           String transactionDate = transaction.getDate();
+
+           LocalDate localDate = LocalDate.parse(transactionDate, dateFormatter);
+
+           int transactionMonth = localDate.getMonthValue();
+           int transactionYear = localDate.getYear();
+
+           if (currentMonth == transactionMonth && currentYear == transactionYear) {
+               System.out.println(transaction);
+           }
+       }
+   }
+   public static void yearToDate(){
+
+      //  currentyear = currentyear - 1
+   }
+   public static void searchByVendor(){
+    // zoo search by animal
+   }
+
+
+
 
 
 //class curly braces
