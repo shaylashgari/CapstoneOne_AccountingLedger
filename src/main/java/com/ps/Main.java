@@ -108,7 +108,7 @@ public class Main {
         System.out.print("Description: ");
         String description = inputScanner.nextLine();
 
-       // inputScanner.nextLine();
+       inputScanner.nextLine();
 
         System.out.print("Vendor: ");
         String vendor = inputScanner.nextLine();
@@ -144,9 +144,58 @@ public class Main {
             e.printStackTrace();
         }
     }
-    }
+
 
     public static void makePayment(){
+
+    // same as deposit
+
+        System.out.println("add deposit");
+
+        System.out.println("Command for adding deposit");
+
+        System.out.println("Please enter the details of the deposit...");
+
+
+        System.out.print("Description: ");
+        String description = inputScanner.nextLine();
+
+        // inputScanner.nextLine();
+
+        System.out.print("Vendor: ");
+        String vendor = inputScanner.nextLine();
+
+        System.out.print("How much do you want to make payment? ");
+        float amountPrice = inputScanner.nextFloat();
+        float amount = -amountPrice;
+
+        // create variables to store the current date time, local date time.now, get itself instead user
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss");
+
+        String formattedDate = currentDateTime.format(dateFormatter);
+        String formattedTime = currentDateTime.format(timeFormatter);
+
+        Transaction transaction = new Transaction(formattedDate, formattedTime, description, vendor, amount);
+        allTransaction.add(transaction);
+
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("transactions.csv", true));
+            bufferedWriter.write(String.format("\n%s|%s|%s|%s|%f",
+                    formattedDate,
+                    formattedTime,
+                    transaction.getDescription(),
+                    transaction.getVendor(),
+                    transaction.getAmount()
+
+            ));
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
     public static void displaySubMenu () {
@@ -218,7 +267,9 @@ public class Main {
     }
 
     public static void reports(){
+        int reportCommand;
 
+        do {
 
 
             System.out.println(" Please select a report type");
@@ -229,20 +280,24 @@ public class Main {
             System.out.println("5) Search by Vendor");
             System.out.println("0) Go Back To Reports Page");
 
-            int reportCommand;
 
-        try {
-            reportCommand = commandScanner.nextInt();
-        } catch (InputMismatchException ime) {
-            reportCommand = 0;
-        }
+            try {
+                reportCommand = commandScanner.nextInt();
+            } catch (InputMismatchException ime) {
+                reportCommand = 0;
+            }
+            // create a switch case
 
-        // do a do while loop & switch
+
+        } while (reportCommand != 0);
+
+
+
     }
 
     // how do I make it go back to home page?
 
-
+    // method for report goes here
 
 
 //class curly braces
