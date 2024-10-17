@@ -99,9 +99,7 @@ public class Main {
 
     public static void addDeposit() {
         System.out.println("add deposit");
-        // add animal in zoo
         System.out.println("Command for adding deposit");
-        // Add code for adding animal
         System.out.println("Please enter the details of the deposit...");
 
 
@@ -143,6 +141,8 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        System.out.println("Deposit was successful!");
     }
 
 
@@ -150,11 +150,11 @@ public class Main {
 
     // same as deposit
 
-        System.out.println("add deposit");
+        System.out.println("Make payment");
 
-        System.out.println("Command for adding deposit");
+//        System.out.println("Command for adding deposit");
 
-        System.out.println("Please enter the details of the deposit...");
+        System.out.println("Please enter the details of the payment...");
 
 
         System.out.println("Description: ");
@@ -196,8 +196,9 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        System.out.println("Payment was successful!");
     }
+    // this pools up the ledger menu, key part of project
     public static void displaySubMenu () {
 
         int subMenuCommand;
@@ -213,7 +214,6 @@ public class Main {
             System.out.println("4) Reports");
             System.out.println("0) Going back to the main menu.");
 
-            // possibly add a scanner
             try {
                 subMenuCommand = commandScanner.nextInt();
             } catch (InputMismatchException ime) {
@@ -247,9 +247,8 @@ public class Main {
 
     }
     public static void displayAllEntries() {
-        getTransactions();
+      //  getTransactions();
 
-        // display all animals ex
         // for loop, iterating through array
         // array list of transactions
 
@@ -271,7 +270,6 @@ public class Main {
         inputScanner.nextLine();
 
         System.out.println("Command for making a deposit");
-        // Add code for adding animal
         System.out.println("Please enter the details of the deposit...");
 
         System.out.print("Description: ");
@@ -318,7 +316,6 @@ public class Main {
         String formattedTime = currentDateTime.format(timeFormatter);
 
         System.out.println("Command for making a deposit");
-        // Add code for adding animal
         System.out.println("Please enter the details of the deposit...");
 
         System.out.print("Description: ");
@@ -489,7 +486,6 @@ public class Main {
     }
 
    public static void searchByVendor(){
-    // zoo search by animal
 
        System.out.println("Placeholder: Search by vendor");
 
