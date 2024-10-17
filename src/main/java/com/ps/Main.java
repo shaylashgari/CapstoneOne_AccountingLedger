@@ -87,7 +87,6 @@ public class Main {
                 String description = (transactionArr[2]);
                 String vendor = transactionArr[3];
                 float amount = Float.parseFloat(transactionArr[4]);
-                boolean isPubliclyAvailable = Boolean.parseBoolean(transactionArr[4]);
                 Transaction transaction = new Transaction(date, time, description, vendor, amount);
                 allTransaction.add(transaction);
             }
@@ -109,13 +108,13 @@ public class Main {
         System.out.print("Description: ");
         String description = inputScanner.nextLine();
 
-       inputScanner.nextLine();
 
         System.out.print("Vendor: ");
         String vendor = inputScanner.nextLine();
 
         System.out.print("How much do you want to deposit? ");
         float amount = inputScanner.nextFloat();
+        inputScanner.nextLine();
 
         // create variables to store the current date time, local date time.now, get it self instead user
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -158,16 +157,16 @@ public class Main {
         System.out.println("Please enter the details of the deposit...");
 
 
-        System.out.print("Description: ");
+        System.out.println("Description: ");
         String description = inputScanner.nextLine();
 
-        // inputScanner.nextLine();
 
-        System.out.print("Vendor: ");
+        System.out.println("Vendor: ");
         String vendor = inputScanner.nextLine();
 
-        System.out.print("How much do you want to make payment? ");
+        System.out.println("How much do you want to make payment? ");
         float amountPrice = inputScanner.nextFloat();
+        inputScanner.nextLine();
         float amount = -amountPrice;
 
         // create variables to store the current date time, local date time.now, get itself instead user
@@ -262,11 +261,98 @@ public class Main {
 
     public static void deposits() {
         // if statement inside loop
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss");
+
+        String formattedDate = currentDateTime.format(dateFormatter);
+        String formattedTime = currentDateTime.format(timeFormatter);
+
+        inputScanner.nextLine();
+
+        System.out.println("Command for making a deposit");
+        // Add code for adding animal
+        System.out.println("Please enter the details of the deposit...");
+
+        System.out.print("Description: ");
+        String description = inputScanner.nextLine();
+
+        System.out.print("Vendor: ");
+        String vendor = inputScanner.nextLine();
+
+        System.out.print("Amount: ");
+        int amount = inputScanner.nextInt();
+
+        inputScanner.nextLine();
+
+
+        Transaction transaction = new Transaction(formattedDate, formattedTime, description, vendor, amount);
+        allTransaction.add(transaction);
+
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("transactions.csv", true));
+            bufferedWriter.write(String.format("\n%s|%s|%d|%s|%b|%s|%s",
+                    formattedDate,
+                    formattedTime,
+                    transaction.getDescription(),
+                    transaction.getVendor(),
+                    transaction.getAmount()
+            ));
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void payments(){
         // same as deposit, negative takes money out
+
+        // if statement inside loop
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss");
+
+        String formattedDate = currentDateTime.format(dateFormatter);
+        String formattedTime = currentDateTime.format(timeFormatter);
+
+        System.out.println("Command for making a deposit");
+        // Add code for adding animal
+        System.out.println("Please enter the details of the deposit...");
+
+        System.out.print("Description: ");
+        String description = inputScanner.nextLine();
+
+        System.out.print("Vendor: ");
+        String vendor = inputScanner.nextLine();
+
+        System.out.print("Amount: ");
+        int amount = inputScanner.nextInt();
+        amount = amount * -1;
+        inputScanner.nextLine();
+
+
+        Transaction transaction = new Transaction(formattedDate, formattedTime, description, vendor, amount);
+        allTransaction.add(transaction);
+
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("transactions.csv", true));
+            bufferedWriter.write(String.format("\n%s|%s|%d|%s|%b|%s|%s",
+                    formattedDate,
+                    formattedTime,
+                    transaction.getDescription(),
+                    transaction.getVendor(),
+                    transaction.getAmount()
+                    ));
+
+            bufferedWriter.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     public static void reports(){
         int reportCommand;
@@ -451,16 +537,15 @@ public class Main {
                     vendor();
                     break;
                 case 5:
-                    amount();
+                  //  amount();
                     break;
                 case 0:
                     System.out.println("Going back to the main menu.");
                     break;
                 default:
                     System.out.println("Command not found. Please try again.");
-
+            }
             } while (customSearch != 0) ;
-        }
     }
 
 
@@ -492,9 +577,7 @@ public class Main {
             }
         }
     }
-    public static void amount(){
 
-    }
 
 
 
