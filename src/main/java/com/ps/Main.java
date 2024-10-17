@@ -280,6 +280,7 @@ public class Main {
             System.out.println("3) Year To Date");
             System.out.println("4) Previous year");
             System.out.println("5) Search by Vendor");
+            System.out.println("6) custom search");
             System.out.println("0) Go Back To Reports Page");
 
 
@@ -304,6 +305,8 @@ public class Main {
                 case 5:
                     searchByVendor();
                     break;
+                case 6:
+                    customSearch();
                 case 0:
                     System.out.println("Going back to the main menu.");
                     break;
@@ -415,8 +418,83 @@ public class Main {
            }
        }
    }
+    public static void customSearch() {
+
+        int customSearch;
+
+        do {
+            System.out.println(" Please select a custom search");
+            System.out.println("1) Start Date");
+            System.out.println("2) End Date");
+            System.out.println("3) Description");
+            System.out.println("4) Vendor");
+            System.out.println("5) Amount");
+            System.out.println("0) Go Back To Custom Search Page");
+
+            try {
+                customSearch = commandScanner.nextInt();
+            } catch (InputMismatchException ime) {
+                customSearch = 0;
+            }
+
+            switch (customSearch) {
+                case 1:
+                    startDate();
+                    break;
+                case 2:
+                    endDate();
+                    break;
+                case 3:
+                    description();
+                    break;
+                case 4:
+                    vendor();
+                    break;
+                case 5:
+                    amount();
+                    break;
+                case 0:
+                    System.out.println("Going back to the main menu.");
+                    break;
+                default:
+                    System.out.println("Command not found. Please try again.");
+
+            } while (customSearch != 0) ;
+        }
+    }
 
 
+    public static void startDate(){
+        System.out.println("Please enter the start date (YYYY-MM-DD");
+
+
+    }
+    public static void endDate(){
+        System.out.println("Please enter the end date");
+    }
+
+    public static void description(){
+        System.out.println("Please enter the description");
+    }
+
+    public static void vendor(){
+        System.out.println("Please enter the vendor");
+        System.out.println("Placeholder: Search by vendor");
+
+        System.out.println("Please provide the vendor name you're looking for...");
+        System.out.print("Vendor: ");
+        String nameToSearch = inputScanner.nextLine();
+
+        for (int i = 0; i < allTransaction.size(); i++) {
+            Transaction currentTransaction = allTransaction.get(i);
+            if (currentTransaction.getVendor().equalsIgnoreCase(nameToSearch)) {
+                System.out.println(currentTransaction);
+            }
+        }
+    }
+    public static void amount(){
+
+    }
 
 
 
